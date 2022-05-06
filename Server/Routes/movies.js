@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
 })
 
 
-router.post("/add",async (req,res)=>{
+router.post("/",async (req,res)=>{
     const {name,image,reviews} = req.body;
     try{
         const newData = new Movie({name,image,reviews});
