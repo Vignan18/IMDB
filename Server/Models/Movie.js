@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 const movieSchema = mongoose.Schema({
   name: String,
   image: String,
+  cast:[String],
+  rating:Number,
+  releaseDate:String,
   reviews: [{ userId: mongoose.ObjectId, rating: Number, review: String }],
   createdAt: {
     type: Date,

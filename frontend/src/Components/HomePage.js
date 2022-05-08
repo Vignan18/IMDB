@@ -1,5 +1,7 @@
 import React,{useEffect, useState} from 'react';
-
+import Navbar from './Navbar';
+import Movies from './Movies';
+import Footer from './Footer';
 
 function HomePage() {
   const [movies,setmovies] = useState();
@@ -12,13 +14,15 @@ function HomePage() {
   }
 
   useEffect(()=>{
-    fetchMovies();
+    //fetchMovies();
   },[])
 
 
   return (
     <div className="App">
-      
+      <Navbar/>
+      <Movies/>
+      <Footer/>
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import "./UserForm.css"
 
 
-const LoginForm = ({closeModal}) => {
+
+const UserForm = () => {
     const [email, setemail] = useState('');
     const [password, setpassword] = useState('');
 
@@ -19,8 +19,7 @@ const LoginForm = ({closeModal}) => {
                 console.log("Successfully registered");
             }
         });
-        // setModalIsopen(false);
-        // setlogin("logout");
+       
     }
 
     const onSignupClick = (e) => {
@@ -37,15 +36,7 @@ const LoginForm = ({closeModal}) => {
 
     return (
         <>
-            <div className='modalBackground'>
-                <div className='modalContainer'>
-                    <div className='closebtn'>
-                    <button onClick={()=>closeModal(false)}>X</button>
-                    </div>
-                    <div className='title'>
-                        <h1>LoginForm</h1>
-                    </div>
-            <div className="body">
+            <div className="LoginPage">
                 <form>
                     <input placeholder="email" name="email" required type="email" onInput={(e) => setemail(e.target.value)} value={email}></input>
                     <input placeholder="password" name="password" required type="password" onInput={(e) => setpassword(e.target.value)} value={password}></input>
@@ -55,15 +46,8 @@ const LoginForm = ({closeModal}) => {
                     </div>
                 </form>
             </div>
-            <div className='footer'>
-                <button>Signup</button>
-                <button>Login</button>
-            </div>
-            </div>
-            </div>
-            
         </>
     )
 }
 
-export default LoginForm;
+export default UserForm;
