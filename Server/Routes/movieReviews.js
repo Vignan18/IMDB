@@ -9,8 +9,10 @@ router.put("/:movieid", async (req, res) => {
     const { rating, review } = req.body;
     const userId = req.session.userId;
     try {
-        Movie.findOne({ _id: movieid }).then(movie => {
+        Movie.findOne({ movieid: movieid }).then(movie => {
             const exisitingUser = movie.reviews.some((review) => review.userId == userId);
+            console.log(movie);
+            
             if (!exisitingUser) {
                 movie.reviews.push({ userId, rating: rating, review: review })
                 movie.save().then(() => {
@@ -18,20 +20,24 @@ router.put("/:movieid", async (req, res) => {
                 })
             }
             else {
-                Movie.updateOne({
+                // Movie.updateOne({
+                //     "reviews.userId": userId
+                // },
+                //     {
+                //         $set:
+                //         {
+                //             "reviews.rating": rating,
+                //             "reviews.review": review
+                //         }
+                //     }).then(() => {
+                //         res.status(204).send(Movie);
+                //     }).catch((e) => {
+                //         res.status(500).send({ error: "Internal Server Error" });
+                //     });
+                const resiii = Movie.findOne({
                     "reviews.userId": userId
-                },
-                    {
-                        $set:
-                        {
-                            "reviews.$.rating": rating,
-                            "reviews.$.review": review
-                        }
-                    }).then(() => {
-                        res.status(204).send(Movie);
-                    }).catch((e) => {
-                        res.status(500).send({ error: "Internal Server Error" });
-                    });
+                })
+                console.log(resiii);
             }
 
         })
@@ -41,5 +47,6 @@ router.put("/:movieid", async (req, res) => {
     }
 
 })
+
 
 module.exports = router;

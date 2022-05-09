@@ -1,28 +1,30 @@
-import React,{useEffect, useState} from 'react';
+import React from 'react';
 import Navbar from './Navbar';
 import Movies from './Movies';
 import Footer from './Footer';
 
+
 function HomePage() {
-  const [movies,setmovies] = useState();
+  // const [movies, setmovies] = useState();
 
-  //get movies using API
-  const fetchMovies = ()=>{
-    fetch('/movies')
-    .then(res=>res.json())
-    .then(res=>console.log(res));
-  }
+  // //get movies using API
+  // const fetchMovies = () => {
+  //   fetch('/movies')
+  //     .then(res => res.json())
+  //     .then(res => console.log(res));
+  // }
 
-  useEffect(()=>{
-    //fetchMovies();
-  },[])
+  // useEffect(() => {
+  //   //fetchMovies();
+  // }, [])
 
 
   return (
     <div className="App">
-      <Navbar/>
-      <Movies/>
-      <Footer/>
+      <Navbar />
+
+      <Movies />
+      <Footer />
     </div>
   );
 }

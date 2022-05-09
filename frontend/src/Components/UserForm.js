@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-
-
-
-const UserForm = () => {
+import "./UserForm.css"
+const UserForm = ({ closeModal }) => {
     const [email, setemail] = useState('');
     const [password, setpassword] = useState('');
 
@@ -17,10 +15,11 @@ const UserForm = () => {
         }).then(res => {
             if (res.status === 204) {
                 console.log("Successfully registered");
+                closeModal();
             }
         });
-        
     }
+
 
     const onSignupClick = (e) => {
         e.preventDefault();
@@ -37,6 +36,7 @@ const UserForm = () => {
     return (
         <>
             <div className="LoginPage">
+                <div className='content'>
                 <form>
                     <input placeholder="email" name="email" required type="email" onInput={(e) => setemail(e.target.value)} value={email}></input>
                     <input placeholder="password" name="password" required type="password" onInput={(e) => setpassword(e.target.value)} value={password}></input>
@@ -45,9 +45,10 @@ const UserForm = () => {
                         <input type="submit" onClick={onSignupClick} value="Sign up"></input>
                     </div>
                 </form>
+                </div>
             </div>
         </>
     )
-}
 
+}
 export default UserForm;

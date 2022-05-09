@@ -17,9 +17,9 @@ router.get("/", async (req, res) => {
 
 
 router.post("/",async (req,res)=>{
-    const {name,image,reviews} = req.body;
+    const {movieid,name,image,rating,releaseDate,reviews} = req.body;
     try{
-        const newData = new Movie({name,image,reviews});
+        const newData = new Movie({movieid,name,image,rating,releaseDate,reviews});
         await newData.save();
         return res.json(await Movie.find());
     }
@@ -41,7 +41,7 @@ router.get("/",async (req,res)=>{
 
 router.get("/:id",async (req,res)=>{
     try{
-        const data = await Movie.findById(req.params.id);
+        const data = await Movie.findOne({ movieid: req.params.id })
         return res.json(data);
     }
     catch(e){
@@ -54,7 +54,7 @@ router.get("/:id",async (req,res)=>{
 router.put("/",async (req,res)=>{
         const {id,reviews} = req.body;
         
-        Movie.updateOne({ _id: id }, {$set:{reviews:reviews}}).then(() => {
+        Movie.updateOne({movieid: id }, {$set:{reviews:reviews}}).then(() => {
             res.status(204).send();
         }).catch(() => {
             res.status(500).send({ error: "Internal Server Error" });
