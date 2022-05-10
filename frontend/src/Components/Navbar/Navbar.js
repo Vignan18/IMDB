@@ -1,6 +1,6 @@
 import React from 'react';
-import Search from './Search';
-import Login from './Login';
+import Search from '../Search/Search';
+import Login from '../Login/Login';
 import './Navbar.css';
 
 const Navbar = ()=>{

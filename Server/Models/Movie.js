@@ -4,6 +4,7 @@ const movieSchema = mongoose.Schema({
   movieid:String,
   name: String,
   image: String,
+  Rating:Number,
   releaseDate:String,
   reviews: [{ userId: mongoose.ObjectId, rating: Number, review: String }],
   createdAt: {
