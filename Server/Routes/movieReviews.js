@@ -11,8 +11,6 @@ router.put("/:movieid",auth.authenticate, async (req, res) => {
     try {
         Movie.findOne({ movieid: movieid }).then(movie => {
             const exisitingUser = movie.reviews.some((review) => review.userId == userId);
-          //  console.log(movie);
-            
             if (!exisitingUser) {
                 movie.reviews.push({ userId, rating: rating, review: review })
                 movie.save().then(() => {
@@ -21,6 +19,7 @@ router.put("/:movieid",auth.authenticate, async (req, res) => {
             }
             else {
                 Movie.updateOne({
+                    "movieid":movieid,
                     "reviews.userId": userId
                 },
                     {

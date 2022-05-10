@@ -5,19 +5,36 @@ import UserForm from '../UserForm/UserForm';
 
 const Login = () => {
     const [modalIsopen, setModalIsopen] = useState(false);
-    const [login, setlogin] = useState('signin')
+    const [login, setlogin] = useState(true);
 
-    const closeModal = ()=>{
+
+    const onLogoutClick = (e) => {
+        e.preventDefault();
+        fetch('/api/sessions/me', {
+            method: 'DELETE',
+        }).then(res => {
+            if (res.status === 204) {
+                console.log("Successfully Logout");
+                setlogin(true);
+            }
+        });
+    }
+
+    const closeModal = () => {
         setModalIsopen(false);
+        setlogin(false);
     }
     return (
         <>
-            <div className='login'>
+            {login && <div className='login'>
                 <button onClick={() => setModalIsopen(true)}
-                >{login}</button>
-                {modalIsopen &&  <UserForm closeModal={closeModal}/>}
-               
+                >signin/login</button>
+                {modalIsopen && <UserForm closeModal={closeModal} />}
             </div>
+            }
+            {
+                !login && <div className='login' ><button onClick={onLogoutClick}>Logout</button></div>
+            }
         </>
     )
 }

@@ -3,6 +3,8 @@ import "./UserForm.css"
 const UserForm = ({ closeModal }) => {
     const [email, setemail] = useState('');
     const [password, setpassword] = useState('');
+    // const [signout,setsignout] = useState(false);
+
 
     const onLoginClick = (e) => {
         e.preventDefault();
@@ -15,6 +17,7 @@ const UserForm = ({ closeModal }) => {
         }).then(res => {
             if (res.status === 204) {
                 console.log("Successfully registered");
+                // setsignout(true);
                 closeModal();
             }
         });
@@ -43,6 +46,7 @@ const UserForm = ({ closeModal }) => {
                     <div>
                         <input type="submit" onClick={onLoginClick} value="Login"></input>
                         <input type="submit" onClick={onSignupClick} value="Sign up"></input>
+                        {/* {signout && <input type="submit" onClick={onLogoutClick} value="logout"></input>} */}
                     </div>
                 </form>
                 </div>
