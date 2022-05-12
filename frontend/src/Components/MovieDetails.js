@@ -26,7 +26,6 @@ const MovieDetails = () => {
     return (
         <>
             <div>
-           
                {Loading && <Movie movie={movieDetails}/> }
             </div>
         </>

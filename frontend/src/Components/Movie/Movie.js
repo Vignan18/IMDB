@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Reviews from "../Reviews/Reviews";
 import "./movie.css";
+import Navbar from "../Navbar/Navbar";
 
 
 const Movie = ({ movie }) => {
@@ -48,6 +49,7 @@ const Movie = ({ movie }) => {
     return (
         <>
             <div className='desc'>
+                <Navbar display={false}/>
                 <img src={movie.image} alt="movie"></img>
                 <h1>{movie.name}</h1>
                 {loading && <Reviews reviews={moviereview} />}

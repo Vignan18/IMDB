@@ -1,12 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Login.css';
-import UserForm from '../UserForm/UserForm';
-
+import Popup from '../Popup/Popup'
 
 const Login = () => {
-    const [modalIsopen, setModalIsopen] = useState(false);
-    const [login, setlogin] = useState(true);
-
+    const [login, setlogin] = useState();
+    const [popup,setpopup]  = useState(false);
+    const [render,rerender] = useState(true);
+    
+    useEffect(()=>{
+        fetch('/api/users/me').then(user => {
+            if (user.status === 200) {
+             setlogin(true);
+            }
+            else {
+              setlogin(false);
+            }
+          });
+    },[render])
 
     const onLogoutClick = (e) => {
         e.preventDefault();
@@ -15,26 +25,30 @@ const Login = () => {
         }).then(res => {
             if (res.status === 204) {
                 console.log("Successfully Logout");
-                setlogin(true);
             }
+            setlogin(false);
         });
     }
 
-    const closeModal = () => {
-        setModalIsopen(false);
-        setlogin(false);
+
+    let userStatus;
+    if(login){
+        userStatus = <div onClick={onLogoutClick}>Logout</div>;
     }
+    else{
+        userStatus = <div onClick={()=>setpopup(true)}>Login/Signup</div>;
+    }
+
+    const updatePopup = ()=>{
+            setpopup(false);
+            rerender(!render);
+    }
+
+  
     return (
         <>
-            {login && <div className='login'>
-                <button onClick={() => setModalIsopen(true)}
-                >signin/login</button>
-                {modalIsopen && <UserForm closeModal={closeModal} />}
-            </div>
-            }
-            {
-                !login && <div className='login' ><button onClick={onLogoutClick}>Logout</button></div>
-            }
+           <span className="login-signup">{userStatus}</span>
+           {popup && <Popup updatePopup={updatePopup}/>}
         </>
     )
 }

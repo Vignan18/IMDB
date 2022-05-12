@@ -1,0 +1,31 @@
+.LoginPage{
+    height: 320px;
+    width: 90%;
+    margin-right: 30px;
+}
+
+.email-input {
+    width: 75%;
+    margin-bottom: 15px;
+  }
+  
+  .password-input {
+    width: 75%;
+  
+  }
+
+.login,
+.signup{
+    background-color: #276ef1;
+    color: #fff;
+    font-size: 16px;
+    line-height: 2; 
+    border-radius: 3px;
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    min-width: 70px;
+    max-width: 70px; 
+}

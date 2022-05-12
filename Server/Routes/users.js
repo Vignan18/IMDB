@@ -44,7 +44,13 @@ router.post('/', (req, res) => {
     });
 });
 
-
+router.get('/me', auth.authenticate, (req, res) => {
+    User.findOne({ _id: req.session.userId }).then(user => {
+        res.send(user);
+    }).catch(() => {
+        res.status(500).send({ error: "Internal Server Error" });
+    });
+});
 
 
 

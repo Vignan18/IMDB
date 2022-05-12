@@ -9,8 +9,7 @@ const Movies = ({movies}) => {
     navigate(`../movie/${id}`, { state: { links: { id } } });
   }
 
-  const movieData = movies.map((movie, index) => {
-    console.log(movie);
+  const movieData = movies.map((movie) => {
     return (
       <div className="movie" key={movie.movieid}>
         <span onClick={() => movieDetails(movie.movieid)}><img className="movieimg"  src={movie.image} alt="" />

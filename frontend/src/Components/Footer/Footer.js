@@ -5,7 +5,7 @@ const Footer = ()=>{
     return (
         <>
         <div className="footer">
-          <p>Made with 🤍 by vignan</p>
+          <p className='author'>Made with 🤍 by vignan</p>
         </div> 
         </>
     )

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import "./UserForm.css"
-const UserForm = ({ closeModal }) => {
+const UserForm = ({clickHandler}) => {
     const [email, setemail] = useState('');
     const [password, setpassword] = useState('');
-    // const [signout,setsignout] = useState(false);
 
 
     const onLoginClick = (e) => {
@@ -17,8 +16,7 @@ const UserForm = ({ closeModal }) => {
         }).then(res => {
             if (res.status === 204) {
                 console.log("Successfully registered");
-                // setsignout(true);
-                closeModal();
+                clickHandler();
             }
         });
     }
@@ -38,15 +36,14 @@ const UserForm = ({ closeModal }) => {
 
     return (
         <>
-            <div className="LoginPage">
+            <div className="LoginPage"  style={{textAlign: 'center'}}>
                 <div className='content'>
                 <form>
-                    <input placeholder="email" name="email" required type="email" onInput={(e) => setemail(e.target.value)} value={email}></input>
-                    <input placeholder="password" name="password" required type="password" onInput={(e) => setpassword(e.target.value)} value={password}></input>
+                    <input  className='email-input' placeholder="email" name="email" required type="email" onInput={(e) => setemail(e.target.value)} value={email}></input>
+                    <input className='password-input' placeholder="password" name="password" required type="password" onInput={(e) => setpassword(e.target.value)} value={password}></input>
                     <div>
-                        <input type="submit" onClick={onLoginClick} value="Login"></input>
-                        <input type="submit" onClick={onSignupClick} value="Sign up"></input>
-                        {/* {signout && <input type="submit" onClick={onLogoutClick} value="logout"></input>} */}
+                        <input type="submit" className="login" onClick={onLoginClick} value="Login"></input>
+                        <input type="submit" className="signup" onClick={onSignupClick} value="Sign up"></input>
                     </div>
                 </form>
                 </div>
