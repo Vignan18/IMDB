@@ -1,5 +1,7 @@
 .desc{
-    margin-top:100px;
-    margin-left:30px;
+   display: grid;
+   align-items: center;
+   justify-content: center;
+   margin-top:20px;
 }
 

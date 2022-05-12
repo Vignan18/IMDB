@@ -3,12 +3,12 @@ import Search from '../Search/Search';
 import Login from '../Login/Login';
 import './Navbar.css';
 
-const Navbar = ()=>{
+const Navbar = ({display})=>{
     return (
         <>
         <div className='navbar'>
             <span>IMDB</span>
-            <Search/>
+           { display &&  <Search/>}
             <Login/>
         </div>
         </>

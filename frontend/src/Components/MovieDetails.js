@@ -1,14 +1,11 @@
 import React,{useState,useEffect} from 'react';
 import { useLocation } from "react-router-dom";
-import Navbar from './Navbar/Navbar';
-// import "./MovieDetails.css"
 import Movie  from './Movie/Movie';
 
 
-const FetchMovieDetails = () => {
+const MovieDetails = () => {
     const location = useLocation();
-    const movieid = location.state.links.id;
-   
+    const movieid = location.state.links.id;  
     const [Loading,setLoading] = useState(false);
     const [movieDetails,setmovieDetails] = useState();
 
@@ -29,11 +26,11 @@ const FetchMovieDetails = () => {
     return (
         <>
             <div>
-                <Navbar />
+           
                {Loading && <Movie movie={movieDetails}/> }
             </div>
         </>
     )
 }
 
-export default FetchMovieDetails;
+export default MovieDetails;

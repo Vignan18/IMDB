@@ -6,9 +6,10 @@ const Movie = require('../Models/Movie');
 
 
 
-router.get("/", async (req, res) => {
+router.get("/:movieid", async (req, res) => {
+    const {movieid} = req.params;
     try {
-        return res.json(await Movie.find());
+        return res.json(await Movie.findOne({ movieid: movieid }));
     }
     catch (e) {
         console.log(e.message);
@@ -17,9 +18,9 @@ router.get("/", async (req, res) => {
 
 
 router.post("/", async (req, res) => {
-    const { movieid, name, image, rating, releaseDate, reviews } = req.body;
+    const { movieid, name, image, Rating, releaseDate, reviews } = req.body;
     try {
-        const newData = new Movie({ movieid, name, image, rating, releaseDate, reviews });
+        const newData = new Movie({ movieid, name, image, Rating, releaseDate, reviews });
         await newData.save();
         return res.json(await Movie.find());
     }

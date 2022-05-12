@@ -24,7 +24,7 @@ function HomePage() {
 
   return (
     <div className="App">
-      <Navbar />
+      <Navbar display={true}/>
       {Loading && <Movies movies={movies} />}
       <Footer />
     </div>

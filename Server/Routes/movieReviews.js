@@ -14,11 +14,11 @@ router.put("/:movieid",auth.authenticate, async (req, res) => {
             if (!exisitingUser) {
                 movie.reviews.push({ userId, rating: rating, review: review })
                 movie.save().then(() => {
-                    res.send(movie);
+                    res.send(movie.reviews);
                 })
             }
             else {
-                Movie.updateOne({
+                 Movie.updateOne({
                     "movieid":movieid,
                     "reviews.userId": userId
                 },
@@ -29,11 +29,12 @@ router.put("/:movieid",auth.authenticate, async (req, res) => {
                             "reviews.$.review": review
                         }
                     }).then(() => {
-                        res.status(204).send(Movie);
+                        return res.status(204).send(movie.reviews);
                     }).catch((e) => {
-                        res.status(500).send({ error: e.message });
+                        return res.status(500).send(movie.reviews);
                     });  
             }
+            
 
         })
     }
@@ -42,6 +43,7 @@ router.put("/:movieid",auth.authenticate, async (req, res) => {
     }
 
 })
+
 
 
 module.exports = router;
