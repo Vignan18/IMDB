@@ -14,9 +14,12 @@ const Movies = ({movies}) => {
       <div className="movie" key={movie.movieid}>
         <span onClick={() => movieDetails(movie.movieid)}><img className="movieimg"  src={movie.image} alt="" />
         </span>
-        <h3 className='moviename'>{movie.name}</h3>
-        <h3 className='moviename'>Rating : {movie.Rating} &#11088;</h3>
-        <h5 className='moviename'>Release Date: {movie.releaseDate}</h5>
+          <div className='moviename'>
+          <h3 >{movie.name}</h3>
+          <h3 >Rating : {movie.Rating} &#11088;</h3>
+          <h5 >Release Date: {movie.releaseDate}</h5>
+          <button className='ratebtn' onClick={() => movieDetails(movie.movieid)}>Rate now</button>
+        </div>
       </div>
     );
   });

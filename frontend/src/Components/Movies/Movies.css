@@ -1,26 +1,42 @@
-.moviecontainer{
+.moviecontainer {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     justify-items: center;
     align-items: center;
     row-gap: 50px;
     background-color: black;
-    width:100%;
+    width: 100%;
 }
 
-.movie{
-    border:1px solid black;
-    padding-bottom:10px;
-    margin-bottom:15px;
-    margin-top:30px;
+
+.movie {
+    border: 1px solid black;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    margin-bottom: 15px;
+    margin-top: 30px;
     background-color: #1a1a1a;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19),0 6px 6px rgba(0,0,0,0.23);
+    width: 240px;
 }
 
+.ratebtn {
+    width: 240px;
+    height: 30px;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+}
 
-.moviename{
-    color:white;
-    display: flex;
+.moviename {
+    color: white;
+    display: grid;
     align-items: center;
     justify-content: center;
+    text-align: center;
+}
+
+.movieimg {
+    width: 240px;
+    height: 350px;
+    cursor: pointer;
 }
