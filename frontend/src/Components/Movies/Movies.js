@@ -16,7 +16,7 @@ const Movies = ({movies}) => {
         </span>
           <div className='moviename'>
           <h3 >{movie.name}</h3>
-          <h3 >Rating : {movie.Rating} &#11088;</h3>
+          <h3 >Rating : {movie.averageRating} &#11088;</h3>
           <h5 >Release Date: {movie.releaseDate}</h5>
           <button className='ratebtn' onClick={() => movieDetails(movie.movieid)}>Rate now</button>
         </div>

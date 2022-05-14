@@ -18,9 +18,9 @@ router.get("/:movieid", async (req, res) => {
 
 
 router.post("/", async (req, res) => {
-    const { movieid, name, image, Rating, releaseDate, reviews } = req.body;
+    const { movieid, name, image, ratingCount, averageRating, releaseDate, reviews } = req.body;
     try {
-        const newData = new Movie({ movieid, name, image, Rating, releaseDate, reviews });
+        const newData = new Movie({ movieid, name, image, ratingCount, averageRating, releaseDate, reviews });
         await newData.save();
         return res.json(await Movie.find());
     }

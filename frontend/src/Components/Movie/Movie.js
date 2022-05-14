@@ -11,7 +11,8 @@ const Movie = ({ movie }) => {
     const [moviereview,setmoviereviews] = useState(movie.reviews);
     const [overview,setoverview] = useState();
     const [poster,setposter] = useState();
-    const [reviewCount,setreviewCount] = useState(movie.reviews.length)
+    const [reviewCount,setreviewCount] = useState(movie.reviews.length);
+    const [averageRating,setaverageRating] = useState(movie.averageRating);
 
     console.log("movies reviews length",movie.reviews.length);
 
@@ -19,10 +20,12 @@ const Movie = ({ movie }) => {
         fetch(`/api/movies/${movie.movieid}`)
         .then(res => res.json())
         .then(res => {
-            setmoviereviews(res.reviews).catch((e)=>{
-                console.log(e.message());
-            })
-        })
+            console.log("movie details=",res);
+            setaverageRating(res.averageRating);
+            setreviewCount(res.ratingCount);
+            setmoviereviews(res.reviews); 
+        }
+    )
     }
 
     useEffect(()=>{
@@ -52,7 +55,6 @@ const Movie = ({ movie }) => {
             }
             else{
                 fetchupdatedReviews();
-                setreviewCount(prev=>prev+1);
             } 
         }).catch((e)=>{
             console.log(e.message);
@@ -69,7 +71,7 @@ const Movie = ({ movie }) => {
                 <h3>Plot:</h3>
                 <p> {overview}</p>
                 <p><b>Release Date</b>: {movie.releaseDate}</p>
-                <p><b>Average Rating</b>: {movie.releaseDate}</p>
+                <p><b>Average Rating</b>: {averageRating}</p>
                 <p><b> Rating Count</b>: {reviewCount}</p>
                 </div>
                <div className="review-form">
