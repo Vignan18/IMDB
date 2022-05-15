@@ -7,7 +7,13 @@ const mongoose = require('mongoose');
 router.put("/:movieid",auth.authenticate, async (req, res) => {
 
     const updateRatingReviews = (movie,exisitingRating,reviewCount)=>{
-        let totalRating = (parseInt(movie.ratingCount * movie.averageRating) - parseInt(exisitingRating) + parseInt(rating))/2;
+        console.log("movie rating count",movie.ratingCount);
+        console.log("average rating",movie.averageRating);
+        console.log("existing rating",exisitingRating);
+        console.log("current rating",rating);
+        console.log("review count",reviewCount);
+
+        let totalRating = (parseInt(parseInt(movie.ratingCount) * parseInt(movie.averageRating)) - parseInt(exisitingRating) + parseInt(rating))/movie.ratingCount;
         movie.averageRating = totalRating;
         console.log(movie.averageRating);
         movie.ratingCount = movie.ratingCount + reviewCount;
@@ -34,6 +40,7 @@ router.put("/:movieid",auth.authenticate, async (req, res) => {
             else {
                 let userIndex = movie.reviews.findIndex((a) => a.userId == userId);
                 exisitingRating =  movie.reviews[userIndex].rating;
+                console.log("exisiting rating",exisitingRating);
                 updateRatingReviews(movie,exisitingRating,reviewCount);
                  Movie.updateOne({
                     "movieid":movieid,
