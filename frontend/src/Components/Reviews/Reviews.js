@@ -2,34 +2,22 @@ import React from "react";
 import "./Reviews.css";
 
 const Reviews = ({ userId,reviews, movieId,fetchupdatedReviews }) => {
-
-
     const deleteReview = ()=>{
-        const url ='/api/reviews/me';
-
         const data = {
              "movieId" :movieId,
              "userId" : userId
          }
- 
-         const requestOptions = {
- 
-         method: 'DELETE',
-         headers: { 'Content-Type': 'application/json' },
-         body: JSON.stringify(data)
-         }
- 
- 
-         fetch(url,requestOptions).then((response) => {
-             
+         fetch('/api/reviews/me',{
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+         }).then((response) => {
              if(response.status === 204){
                  console.log("deleted successfully");
                 fetchupdatedReviews();
              }
              else if(response.status === 401){
-                 alert('Session expired login Again');
-               
-                 
+                 console.log('Login failed');    
              }
          }).catch((err) => {
              console.log(err);

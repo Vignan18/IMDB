@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Movies from '../Movies/Movies';
 
 import "./HomePage.css";
+import Footer from "../Footer/Footer";
 
 
 function HomePage() {
@@ -26,6 +27,7 @@ function HomePage() {
   return (
     <div className="App">
       {Loading && <Movies movies={movies} />}
+      <Footer/>
     </div>
   );
 }
