@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './Login.css';
-import Popup from '../Popup/Popup'
+import Popup from '../Popup/Popup';
+ import { useNavigate } from "react-router-dom";
+export const userStatusConext = React.createContext();
 
 const Login = () => {
-    const [login, setlogin] = useState();
+    const [login, setlogin] = useState(false);
     const [popup,setpopup]  = useState(false);
     const [render,rerender] = useState(true);
+    const navigate = useNavigate();
     
     useEffect(()=>{
         fetch('/api/users/me').then(user => {
@@ -25,6 +28,7 @@ const Login = () => {
         }).then(res => {
             if (res.status === 204) {
                 console.log("Successfully Logout");
+                navigate("/");
             }
             setlogin(false);
         });
@@ -46,10 +50,12 @@ const Login = () => {
 
   
     return (
+        <userStatusConext value={login}>
         <>
            <span className="login-signup">{userStatus}</span>
            {popup && <Popup updatePopup={updatePopup}/>}
         </>
+        </userStatusConext>
     )
 }
 

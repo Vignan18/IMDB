@@ -13,7 +13,7 @@ router.put("/:movieid",auth.authenticate, async (req, res) => {
         console.log("current rating",rating);
         console.log("review count",reviewCount);
 
-        let totalRating = (parseInt(parseInt(movie.ratingCount) * parseInt(movie.averageRating)) - parseInt(exisitingRating) + parseInt(rating))/movie.ratingCount;
+        let totalRating = (parseInt(parseInt(movie.ratingCount) * parseInt(movie.averageRating)) - parseInt(exisitingRating) + parseInt(rating))/(movie.ratingCount + reviewCount);
         movie.averageRating = totalRating;
         console.log(movie.averageRating);
         movie.ratingCount = movie.ratingCount + reviewCount;
@@ -69,6 +69,23 @@ router.put("/:movieid",auth.authenticate, async (req, res) => {
 
 })
 
+router.delete('/me', auth.authenticate,(req,res) => {
 
-
+     const {userId,movieId} = req.body;
+     Movie.updateOne({
+        "movieid":movieId,
+    },
+        {
+            "$pull":
+            {
+                "reviews": {"userId":userId}
+            }
+        }
+       ).then(
+        (response) => {res.status(204).send(response)}
+        )
+        .catch((err) => {
+            console.log(err);
+        })
+})
 module.exports = router;

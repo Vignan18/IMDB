@@ -3,3 +3,11 @@
     height:30px; 
     border-radius: 5px;
 }
+
+.search {
+    margin-top:55px;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+}

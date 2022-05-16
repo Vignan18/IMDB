@@ -1,20 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import Reviews from "../Reviews/Reviews";
 import "./movie.css";
-import Navbar from "../Navbar/Navbar";
-import Footer from "../Footer/Footer";
+import {userStatusConext} from "../Login/Login";
 import "../HomePage/HomePage.css";
 
 const Movie = ({ movie }) => {
-  const [rating, setrating] = useState();
-  const [review, setreview] = useState();
+  const userStatus = useContext(userStatusConext);
+  console.log("user status",userStatus);
+  const [rating, setrating] = useState("");
+  const [review, setreview] = useState("");
   const [moviereview, setmoviereviews] = useState(movie.reviews);
   const [overview, setoverview] = useState();
   const [poster, setposter] = useState();
   const [reviewCount, setreviewCount] = useState(movie.reviews.length);
   const [averageRating, setaverageRating] = useState(movie.averageRating);
+  const [userId,setuserId] = useState('');
+  const [rvuser,setrvuser] = useState('');
+  const [addreview,setaddreview] = useState(false);
 
   console.log("movies reviews length", movie.reviews.length);
+
+  const clearForm = () => {
+    setrating("Rate");
+    setreview("");
+  };
 
   const fetchupdatedReviews = () => {
     fetch(`/api/movies/${movie.movieid}`)
@@ -22,14 +31,13 @@ const Movie = ({ movie }) => {
       .then((res) => {
         console.log("movie details=", res);
         setrating("Rate");
-        setreview("");
         setaverageRating(res.averageRating);
         setreviewCount(res.ratingCount);
         setmoviereviews(res.reviews);
       });
   };
 
-  useEffect(() => {
+  const movieInfo = () => {
     fetch(
       `https://api.themoviedb.org/3/movie/${movie.movieid}?api_key=04c35731a5ee918f014970082a0088b1`
     )
@@ -39,7 +47,29 @@ const Movie = ({ movie }) => {
         setposter(image);
         setoverview(res.overview);
       });
+  };
+
+  const presentUser = () => {
+    fetch("/api/sessions/me")
+    .then((user) => user.json())
+    .then((res)=>{
+      setuserId(res.userId);
+      setaddreview(true);
+      console.log("vale",res.userId)
+    }).catch((e)=>{
+      console.log(e.message);
+    })
+    
+  };
+
+  useEffect(() => {
+    movieInfo();
+    presentUser();
   }, []);
+
+
+
+
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -55,6 +85,7 @@ const Movie = ({ movie }) => {
         if (res.status === 401) {
           console.log("Please login");
         } else {
+          clearForm();
           fetchupdatedReviews();
         }
       })
@@ -66,7 +97,6 @@ const Movie = ({ movie }) => {
   return (
     <>
       <div className="desc">
-        <Navbar display={false} />
         <div className="main-content">
           <h1>{movie.name}</h1>
           <img className="posterimage" src={poster} alt="movie"></img>
@@ -88,7 +118,7 @@ const Movie = ({ movie }) => {
               <b> Rating Count</b>: {reviewCount}
             </p>
 
-            <div className="review-form">
+            {addreview ? <div className="review-form">
               <form onSubmit={submitHandler}>
                 <div className="rating">
                   <div className="rate">
@@ -107,7 +137,8 @@ const Movie = ({ movie }) => {
                     </select>
                   </div>
                   <div className="review">
-                    <textarea className="reviewbox"
+                    <textarea
+                      className="reviewbox"
                       type="text"
                       placeholder="your review here"
                       onChange={(e) => setreview(e.target.value)}
@@ -117,17 +148,22 @@ const Movie = ({ movie }) => {
                   </div>
                 </div>
               </form>
-            </div>
+            </div>:
+            <div class="userlogin">
+                <p>Please login to give review</p>
+              </div>
+            }
           </div>
+  
 
           <div className="reviews category2">
             <h3 className="plot">User Reviews:</h3>
-            <Reviews reviews={moviereview} />
+            <Reviews fetchupdatedReviews={fetchupdatedReviews} movieId={movie.movieid} userId={userId} reviews={moviereview} />
           </div>
         </div>
       </div>
-      <hr className="line footer"></hr>
-      <Footer />
+      {/* <hr className="line footer"></hr>
+      <Footer /> */}
     </>
   );
 };

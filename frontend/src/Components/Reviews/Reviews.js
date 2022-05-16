@@ -1,13 +1,49 @@
 import React from "react";
 import "./Reviews.css";
 
-const Reviews = ({ reviews }) => {
+const Reviews = ({ userId,reviews, movieId,fetchupdatedReviews }) => {
+
+
+    const deleteReview = ()=>{
+        const url ='/api/reviews/me';
+
+        const data = {
+             "movieId" :movieId,
+             "userId" : userId
+         }
+ 
+         const requestOptions = {
+ 
+         method: 'DELETE',
+         headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify(data)
+         }
+ 
+ 
+         fetch(url,requestOptions).then((response) => {
+             
+             if(response.status === 204){
+                 console.log("deleted successfully");
+                fetchupdatedReviews();
+             }
+             else if(response.status === 401){
+                 alert('Session expired login Again');
+               
+                 
+             }
+         }).catch((err) => {
+             console.log(err);
+         })
+    }
+
+
     const movieReviews = reviews.map((rev, index) => {
         return (
             <ul key={index}>
                 <li>
                 <span>{rev.rating}&#11088;-</span>
                 <span>{rev.review}</span>
+                {rev.userId === userId && <button onClick={deleteReview}>Delete</button>}
                 </li>
             </ul>
         );

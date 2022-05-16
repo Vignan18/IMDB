@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../Navbar/Navbar';
+
 import Movies from '../Movies/Movies';
-import Footer from '../Footer/Footer';
+
 import "./HomePage.css";
 
 
@@ -25,10 +25,7 @@ function HomePage() {
 
   return (
     <div className="App">
-      <Navbar display={true}/>
       {Loading && <Movies movies={movies} />}
-      <hr className="line"></hr>
-      <Footer />
     </div>
   );
 }

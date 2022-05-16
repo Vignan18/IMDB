@@ -1,12 +1,29 @@
 import React, { useState } from 'react';
-import "./UserForm.css"
+import "./UserForm.css";
+ import { useNavigate } from "react-router-dom";
 const UserForm = ({clickHandler}) => {
     const [email, setemail] = useState('');
+    const navigate = useNavigate();
     const [password, setpassword] = useState('');
+    const [userStatus,setuserStatus] = useState('login');
 
-
-    const onLoginClick = (e) => {
+    const newUserHandler  = (e)=>{
         e.preventDefault();
+        setuserStatus('signup');
+    }
+
+    const submitHandler = (e)=>{
+        e.preventDefault();
+        if(userStatus === 'signup'){
+            onSignupClick();  
+        }
+        else{
+            onLoginClick();
+        }
+    }
+
+    const onLoginClick = () => {
+
         fetch('/api/sessions', {
             method: 'POST',
             body: JSON.stringify({ email, password }),
@@ -16,21 +33,26 @@ const UserForm = ({clickHandler}) => {
         }).then(res => {
             if (res.status === 204) {
                 console.log("Successfully registered");
+                navigate("/");
                 clickHandler();
             }
         });
     }
 
 
-    const onSignupClick = (e) => {
-        e.preventDefault();
+    const onSignupClick = () => {
+      
         fetch('/api/users', {
             method: 'POST',
             body: JSON.stringify({ email, password }),
             headers: {
                 'Content-type': 'application/json; charset=UTF-8'
             }
-        });
+        }).then(res=>{
+           if(res.status === 201){
+            setuserStatus('login');
+           }
+        })
 
     }
 
@@ -42,8 +64,9 @@ const UserForm = ({clickHandler}) => {
                     <input  className='email-input' placeholder="email" name="email" required type="email" onInput={(e) => setemail(e.target.value)} value={email}></input>
                     <input className='password-input' placeholder="password" name="password" required type="password" onInput={(e) => setpassword(e.target.value)} value={password}></input>
                     <div>
-                        <input type="submit" className="login" onClick={onLoginClick} value="Login"></input>
-                        <input type="submit" className="signup" onClick={onSignupClick} value="Sign up"></input>
+                        <button type="submit" className="login" onClick={submitHandler}>{userStatus}</button>
+                        <br></br>
+                        <button  className="newuser" onClick={newUserHandler}>New User</button>
                     </div>
                 </form>
                 </div>

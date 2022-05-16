@@ -45,4 +45,15 @@ router.delete('/me', (req, res) => {
     res.status(204).send();
 });
 
+router.get('/me',(req,res)=>{
+    if(req.session.userId)
+    {
+        res.status(200).json({'userId' : req.session.userId});
+    }
+    else 
+    {
+        res.status(204).send();
+    }
+})
+
 module.exports = router;
