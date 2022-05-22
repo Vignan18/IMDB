@@ -1,5 +1,6 @@
 A Web Application similar to IMDB where users can see a list of TV Series currently aired on the site.
 1. Support for rating and reviewing the movies is provided.
+
 2.Review editing/deleting will be user-specific. The User who adds the review can only edit/delete that respective review.
 
 ![LandingPage](https://user-images.githubusercontent.com/35171316/169696703-c2f09de4-02a7-4bc9-a90d-79d4cb19d301.png)
