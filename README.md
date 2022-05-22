@@ -1,3 +1,5 @@
+Portal Similar to IMDB where users can see a list of TV Series currently aired on the site.
+Support for rating and reviewing the movies is provided.
 
 ![LandingPage](https://user-images.githubusercontent.com/35171316/169696703-c2f09de4-02a7-4bc9-a90d-79d4cb19d301.png)
 ![Login](https://user-images.githubusercontent.com/35171316/169696815-5da0f32f-09c0-428f-b4ab-49adcbfc1c70.png)
