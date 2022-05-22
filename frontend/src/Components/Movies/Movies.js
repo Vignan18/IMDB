@@ -1,13 +1,15 @@
-import React from "react";
+import React,{useState} from "react";
 import "./Movies.css";
 import { useNavigate } from "react-router-dom";
-import Search from "../Search/Search";
 
 const Movies = ({ movies }) => {
   const navigate = useNavigate();
+
+
   const movieDetails = (id) => {
     navigate(`../movie/${id}`, { state: { links: { id } } });
   };
+
 
   const movieData = movies.map((movie) => {
     return (
@@ -33,7 +35,6 @@ const Movies = ({ movies }) => {
   });
   return(
   <>
-    <Search />
     <div className="moviecontainer">{movieData}</div>
   </>);
 
