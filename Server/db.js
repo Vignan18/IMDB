@@ -13,7 +13,7 @@ const connect = (dbConfig) => {
             }
         }
 
-        const mongoUri = `mongodb+srv://username:password@cluster0.zpht7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+//         const mongoUri = `mongodb+srv://username:password@cluster0.zpht7.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 
         return mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
     } catch (err) {
